@@ -1,7 +1,7 @@
 """
 Api endpoints
 """
-from multiprocessing import Process
+import multiprocessing
 from flask import jsonify
 
 from allohomora import app, Doorbell
@@ -17,5 +17,6 @@ def hello():
 
 @app.route("/open")
 def door_open():
-    Process(target=doorbell.open, args=(config.OPEN_TIME,)).start()
+    if len(multiprocessing.active_children()) < 1:
+        multiprocessing.Process(target=doorbell.open, args=(config.OPEN_TIME,)).start()
     return jsonify(status='opened')
