@@ -1,5 +1,6 @@
 import sys
 import signal
+import config
 from allohomora import app, views
 
 
@@ -9,4 +10,4 @@ def shutdown(signum, frame):
 signal.signal(signal.SIGINT, shutdown)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", debug=config.DEBUG)
