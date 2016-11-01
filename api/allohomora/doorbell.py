@@ -17,8 +17,14 @@ class Doorbell(object):
         GPIO.setup(self.gpio_bell, GPIO.IN, GPIO.PUD_UP)
         GPIO.setup(self.gpio_open, GPIO.IN, GPIO.PUD_UP)
 
-        GPIO.add_event_detect(self.gpio_bell, GPIO.FALLING, callback=self.printio, bouncetime=350)
-        GPIO.add_event_detect(self.gpio_open, GPIO.FALLING, callback=self.printio, bouncetime=350)
+        GPIO.add_event_detect(self.gpio_bell, GPIO.FALLING, callback=self.printio, bouncetime=300)
+        GPIO.add_event_detect(self.gpio_open, GPIO.BOTH, callback=self._push_open, bouncetime=50)
+
+    def _push_open(self, channel):
+        if GPIO.input(channel):
+            GPIO.output(self.gpio_relay, GPIO.HIGH)
+        else:
+            GPIO.output(self.gpio_relay, GPIO.LOW)
 
     def _open(self, duration):
         GPIO.output(self.gpio_relay, GPIO.LOW)
