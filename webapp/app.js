@@ -24,7 +24,7 @@
                 this.events.push({
                     date: new Date().toLocaleDateString(),
                     hour: new Date().toLocaleTimeString(),
-                    source: 'Web',
+                    source: event.source,
                 });
                 this.notify('Door opened');
             }.bind(this));
