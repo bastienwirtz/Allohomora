@@ -7,8 +7,6 @@ from blinker import signal
 open_signal = signal('open')
 bell_signal = signal('bell')
 
-global thread
-
 
 class Doorbell(object):
     """
@@ -23,9 +21,10 @@ class Doorbell(object):
 
         self.input_bell = {"channel": gpio_bell, "state": None, "signal": bell_signal}
         self.input_open = {"channel": gpio_open, "state": None, "signal": open_signal, "relay": gpio_relay}
+        self.input_thread = None
 
     def _read_inputs(self):
-        while True:
+        while bool(self.input_bell):
             ring_current_state = GPIO.input(self.input_bell["channel"])
             open_current_state = GPIO.input(self.input_open["channel"])
 
@@ -47,10 +46,9 @@ class Doorbell(object):
             time.sleep(0.2)
 
     def start_read_inputs(self):
-        thread = None
-        if thread is None:
-            thread = Thread(target=self._read_inputs)
-            thread.start()
+        if self.input_thread is None:
+            self.input_thread = Thread(target=self._read_inputs, daemon=True)
+            self.input_thread.start()
 
     def _open(self, duration):
         GPIO.output(self.input_open["relay"], GPIO.LOW)
@@ -65,9 +63,6 @@ class Doorbell(object):
         # Door already open
         return False
 
-    def ring(self, channel):
-        bell_signal.send()
-
-    @staticmethod
-    def shutdown():
+    def shutdown(self):
+        self.input_bell = None
         GPIO.cleanup()

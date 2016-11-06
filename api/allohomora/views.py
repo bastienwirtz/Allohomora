@@ -4,13 +4,10 @@ Api endpoints
 
 from flask import jsonify
 
-from allohomora import app, Doorbell
+from allohomora import app, doorbell
 from allohomora.doorbell import open_signal
 import config
 
-
-doorbell = Doorbell(config.RELAY_IO, config.BELL_IO, config.OPEN_IO)
-doorbell.start_read_inputs()
 
 @app.route("/")
 def hello():
@@ -19,6 +16,6 @@ def hello():
 
 @app.route("/open")
 def door_open():
-    open_signal.send(source='api')
-    doorbell.open(config.OPEN_TIME)
+    if doorbell.open(config.OPEN_TIME):
+        open_signal.send(source='api')
     return jsonify(status='opened')

@@ -5,14 +5,14 @@ import sys
 import signal
 import config
 
-from allohomora import app, socketio, views, Event, Doorbell
+from allohomora import app, socketio, views, Event, doorbell
 from allohomora.doorbell import open_signal, bell_signal
 
 open_signal.connect(Event.open)
 bell_signal.connect(Event.ring)
 
 def shutdown(signum, frame):
-    Doorbell.shutdown()
+    doorbell.shutdown()
     sys.exit(0)
 
 signal.signal(signal.SIGINT, shutdown)
