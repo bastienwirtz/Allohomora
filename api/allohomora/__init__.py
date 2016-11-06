@@ -1,4 +1,3 @@
-from .doorbell import Doorbell
 from flask import Flask
 from flask_cors import CORS
 from flask_socketio import SocketIO
@@ -9,3 +8,4 @@ CORS(app)
 socketio = SocketIO(app)
 
 from .event import Event
+from .doorbell import Doorbell

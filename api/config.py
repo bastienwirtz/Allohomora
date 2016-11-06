@@ -5,4 +5,4 @@ OPEN_IO = 4
 
 # App settings
 OPEN_TIME = 2
-DEBUG = True
+DEBUG = False

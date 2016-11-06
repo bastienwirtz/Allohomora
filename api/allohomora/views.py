@@ -1,13 +1,16 @@
 """
 Api endpoints
 """
+
 from flask import jsonify
 
 from allohomora import app, Doorbell
 from allohomora.doorbell import open_signal
 import config
 
+
 doorbell = Doorbell(config.RELAY_IO, config.BELL_IO, config.OPEN_IO)
+doorbell.start_read_inputs()
 
 @app.route("/")
 def hello():

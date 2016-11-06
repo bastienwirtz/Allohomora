@@ -1,7 +1,8 @@
 (function() {
     'use strict';
 
-    var socket = io.connect('http://192.168.0.112:5000');
+    var doorbellUrl = 'http://192.168.0.112:5000';
+    var socket = io.connect(doorbellUrl);
 
     // Notification initialization
     var nativeNotification = false;
@@ -21,12 +22,13 @@
         created: function() {
             socket.on('opened', function(event) {
                 console.log(event);
+                this.notify('Door opened');
+                var eventTime = new Date(event.time);
                 this.events.push({
-                    date: new Date().toLocaleDateString(),
-                    hour: new Date().toLocaleTimeString(),
+                    date: eventTime.toLocaleDateString(),
+                    hour: eventTime.toLocaleTimeString(),
                     source: event.source,
                 });
-                this.notify('Door opened');
             }.bind(this));
             socket.on('ringing', function(event) {
                 console.log(event);
@@ -35,8 +37,8 @@
         },
         methods: {
             openDoor: function () {
-                this.$http.get('http://192.168.0.112:5000/open').then((response) => {
-                    console.log('Door open successfully');
+                this.$http.get(doorbellUrl+'/open').then((response) => {
+                    console.log('Door successfully opened');
                 }, (response) => {
                     this.notify('An error occurred');
                 });
