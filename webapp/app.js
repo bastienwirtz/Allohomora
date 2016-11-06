@@ -37,9 +37,7 @@
         },
         methods: {
             openDoor: function () {
-                this.$http.get(doorbellUrl+'/open').then((response) => {
-                    console.log('Door successfully opened');
-                }, (response) => {
+                this.$http.get(doorbellUrl+'/open').catch(function response() {
                     this.notify('An error occurred');
                 });
 
