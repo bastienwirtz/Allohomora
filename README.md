@@ -1,7 +1,7 @@
 # Allohomora
 Raspberry pi based connected doorbell
 
-![schema](/schema/path/to/allohomora.png?raw=true)
+![schema](/schema/allohomora.png?raw=true)
 
 ## Run
 
