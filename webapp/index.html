@@ -1,98 +1,92 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Allohomora connected doorbell at your service">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Allohomora!</title>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Allohomora connected doorbell at your service">
+  <title>Allohomora!</title>
 
-    <!-- Add to homescreen for Chrome on Android -->
-    <meta name="theme-color" content="#673AB7" />
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="128x128" href="images/favicon.png" type="image/x-icon">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="theme-color" content="#673AB7" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="128x128" href="images/favicon.png" type="image/x-icon">
 
-    <!-- Add to homescreen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Allohomora!">
-    <link rel="apple-touch-icon" href="images/logo.png">
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Allohomora!">
+  <link rel="apple-touch-icon" href="images/logo.png">
 
-    <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="images/logo.png">
-    <meta name="msapplication-TileColor" content="#673AB7">
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="images/logo.png">
+  <meta name="msapplication-TileColor" content="#673AB7">
 
-    <link rel="shortcut icon" href="images/favicon.png">
+  <link rel="shortcut icon" href="images/favicon.png">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.deep_purple-pink.min.css">
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
-    <div id="app" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
-        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-        </div>
-        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-          <h3>Allohomora!</h3>
-        </div>
-        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-        </div>
-        <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-          <a href="#overview" class="mdl-layout__tab is-active">Historique</a>
-          <a href="#settings" class="mdl-layout__tab">Paramètres</a>
-          <button v-on:click="openDoor" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
-            <i class="material-icons" role="presentation">add</i>
-            <span class="visuallyhidden">Add</span>
-          </button>
-        </div>
-      </header>
-      <main class="mdl-layout__content">
-        <div class="mdl-layout__tab-panel is-active" id="overview">
-          <section v-for="event in events" class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-            <div class="mdl-card mdl-cell mdl-cell--12-col">
-              <div class="mdl-card__supporting-text">
-                 <h4>Ouverture</h4>
-                <ul>
-                    <li>Date: {{ event.date }}</li>
-                    <li>Heure: {{ event.hour }}</li>
-                </ul>
-              </div>
-              <div class="mdl-card__actions">
-                <a href="#" class="mdl-button">Source: {{ event.source }}</a>
-              </div>
-            </div>
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn1">
-              <i class="material-icons">more_vert</i>
-            </button>
-            <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn1">
-              <li class="mdl-menu__item">Supprimer</li>
-            </ul>
-          </section>
-          <section class="section--footer"></section>
-        </div>
-        <div class="mdl-layout__tab-panel" id="settings">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-        </div>
-        <footer class="mdl-mega-footer">
-          <div class="mdl-mega-footer--bottom-section">
-            <ul class="mdl-mega-footer--link-list">
-              <li><a href="https://github.com/bastienwirtz/Allohomora">Allohomora on github</a></li>
-            </ul>
-          </div>
-        </footer>
-      </main>
-      <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
-        <div class="mdl-snackbar__text"></div>
-        <button type="button" class="mdl-snackbar__action"></button>
-      </div>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="dist/css/bootstrap-material-design.min.css">
+  <link rel="stylesheet" href="dist/css/ripples.min.css">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+<div id="app">
+  <div class="header">
+    <div class="container">
+      <h1>Allohomora!</h1>
+      <small>Connected doorbell control panel</small>
+
+      <a v-on:click="openDoor" class="btn btn-danger btn-fab pull-right" id="btn-open">
+        <i class="material-icons">lock_open</i>
+      </a>
     </div>
+  </div>
 
-    <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-    <script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script src="app.js"></script>
-  </body>
+  <div v-if="!events.length" class="container">
+    <h2>Aucun événement pour le moment</h2>
+  </div>
+  <div v-else class="container main">
+    <div class="timeline"></div>
+    <div class="col-md-12">
+      <h2>Dernier événements</h2>
+    </div>
+    <section v-for="event in events" class="row">
+      <div class="col-md-12">
+        <div class="event-dot" v-bind:class="event.type"></div>
+          <div class="event-info">
+          <div>
+            <h3>{{ event.label }}</h3>
+            <p class="event-time">{{ event.date }} {{ event.hour }}</p>
+          </div>
+            <p class="event-source" v-if="event.source">
+              <strong>Source:</strong> <span v-if="event.source == 'api'">Web</span><span v-else>Bouton</span>
+            </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="dist/js/material.min.js"></script>
+<script src="dist/js/ripples.min.js"></script>
+
+<script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="app.js"></script>
+</body>
 </html>

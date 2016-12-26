@@ -1,0 +1,88 @@
+#app {
+  .header {
+    background-color: rgb(103,58,183);
+    color: #FFFFFF;
+    padding: 25px 0;
+
+    .container {
+      position: relative;
+    }
+
+    h1 {
+      font-size: 45px;
+    }
+
+    small {
+      color: #e6c3ff;
+      font-size: 16px;
+    }
+
+    #btn-open {
+      position: absolute;
+      right: 15px;
+      bottom: -50px;
+      z-index: 9999;
+
+      &:hover {
+        background-color: #bb362c;
+      }
+    }
+  }
+
+  .main {
+    position: relative;
+
+    h2 {
+      font-weight: 400;
+    }
+
+    .timeline {
+      height: 100%;
+      width: 2px;
+      background-color: #cccccc;
+      position: absolute;
+    }
+
+    .event-dot {
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      vertical-align: top;
+      margin-left: -5px;
+      margin-top: 27px;
+      border-radius: 50%;
+      background-color: #ff9c4c;
+      box-shadow: 0 1px 1.5px 0 rgba(0,0,0,.12), 0 1px 1px 0 rgba(0,0,0,.24);
+
+      &.open {
+        background-color: #5bc0de;
+      }
+
+      &.ring {
+        background-color: #f0ad4e;
+      }
+
+      &.answered {
+        background-color: #5cb85c;
+      }
+    }
+
+    .event-info {
+      display: inline-block;
+      margin-left: 20px;
+    }
+
+    .event-time {
+      @media (max-width: 768px) {
+        position: absolute;
+        right: 15px;
+        top: 27px;
+      }
+    }
+
+    .event-source {
+      color: #3f51b5;
+    }
+  }
+
+}
