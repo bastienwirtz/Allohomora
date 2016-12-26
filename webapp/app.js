@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    var doorbellUrl = 'http://192.168.0.112:5000';
+    var doorbellUrl = 'http://192.168.1.214:5000';
     var socket = io.connect(doorbellUrl);
 
     // Notification initialization
@@ -21,17 +21,24 @@
         },
         created: function() {
             socket.on('opened', function(event) {
-                console.log(event);
-                this.notify('Door opened');
                 var eventTime = new Date(event.time);
-                this.events.push({
+                this.events.unshift({
+                    label: 'Ouverture',
+                    type: 'open',
                     date: eventTime.toLocaleDateString(),
                     hour: eventTime.toLocaleTimeString(),
                     source: event.source,
                 });
+                this.notify('Door opened');
             }.bind(this));
             socket.on('ringing', function(event) {
-                console.log(event);
+                var eventTime = new Date();
+                this.events.unshift({
+                    label: 'Drinnng',
+                    type: 'ring',
+                    date: eventTime.toLocaleDateString(),
+                    hour: eventTime.toLocaleTimeString(),
+                });
                 this.notify('Someone knocking at the door!');
             }.bind(this));
         },
