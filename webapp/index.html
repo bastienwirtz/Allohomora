@@ -67,8 +67,9 @@
         <div class="event-dot" v-bind:class="event.type"></div>
           <div class="event-info">
           <div>
-            <h3>{{ event.label }}</h3>
-            <p class="event-time"><span v-if="event.date != new Date().toLocaleDateString()">{{ event.date }}</span> {{ event.hour }}</p>
+            <h3>{{ event.label }}
+              <small class="event-time"><span v-if="event.date != new Date().toLocaleDateString()">{{ event.date }}</span> {{ event.hour }}</small>
+            </h3>
           </div>
             <p class="event-source" v-if="event.source">
               <strong>Source:</strong> <span v-if="event.source == 'api'">Web</span><span v-else>Bouton</span>
