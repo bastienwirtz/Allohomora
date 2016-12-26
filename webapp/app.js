@@ -3,6 +3,7 @@
 
     var doorbellUrl = 'http://192.168.1.214:5000';
     var socket = io.connect(doorbellUrl);
+    var openDuration = 2500;
 
     // Notification initialization
     var nativeNotification = false;
@@ -29,6 +30,24 @@
                     hour: eventTime.toLocaleTimeString(),
                     source: event.source,
                 });
+
+                $('#btn-open').addClass('disable');
+
+                var bar = new ProgressBar.Circle('#btn-open', {
+                    strokeWidth: 6,
+                    easing: 'easeInOut',
+                    duration: openDuration,
+                    color: '#f44336',
+                    trailColor: 'transparent',
+                    trailWidth: 1,
+                    svgStyle: null
+                });
+
+                bar.animate(1.0, function() {
+                    $('#btn-open').removeClass('disable');
+                    bar.destroy();
+                });
+
                 this.notify('Door opened');
             }.bind(this));
             socket.on('ringing', function(event) {
@@ -43,11 +62,14 @@
             }.bind(this));
         },
         methods: {
-            openDoor: function () {
-                this.$http.get(doorbellUrl+'/open').catch(function response() {
-                    this.notify('An error occurred');
-                });
-
+            openDoor: function (e) {
+                var button = $(e.target).is('a') ? $(e.target) : $(e.target).parent();
+                console.log(button);
+                if (!button.hasClass('disable')) {
+                    this.$http.get(doorbellUrl+'/open').catch(function response() {
+                        this.notify('An error occurred');
+                    });
+                }
             },
             notify: function (message) {
                 if (nativeNotification) {

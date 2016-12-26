@@ -68,7 +68,7 @@
           <div class="event-info">
           <div>
             <h3>{{ event.label }}</h3>
-            <p class="event-time">{{ event.date }} {{ event.hour }}</p>
+            <p class="event-time"><span v-if="event.date != new Date().toLocaleDateString()">{{ event.date }}</span> {{ event.hour }}</p>
           </div>
             <p class="event-source" v-if="event.source">
               <strong>Source:</strong> <span v-if="event.source == 'api'">Web</span><span v-else>Bouton</span>
@@ -79,8 +79,14 @@
   </div>
 </div>
 
+<div class="footer">
+  <img src="images/GitHub-Mark-32px.png" />
+  <a href="https://github.com/bastienwirtz/Allohomora">Allohomora on github</a>
+</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="dist/js/progressbar.min.js"></script>
 <script src="dist/js/material.min.js"></script>
 <script src="dist/js/ripples.min.js"></script>
 
