@@ -37,7 +37,7 @@
 #app .main .timeline {
   height: 100%;
   width: 2px;
-  background-color: #cccccc;
+  background-color: #adadad;
   position: absolute;
 }
 #app .main .event-dot {
