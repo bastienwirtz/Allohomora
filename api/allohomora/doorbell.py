@@ -1,7 +1,9 @@
 import time
+from datetime import datetime
 from threading import Thread
 import multiprocessing
 import RPi.GPIO as GPIO
+from picamera import PiCamera
 
 from blinker import signal
 open_signal = signal('open')
@@ -23,6 +25,9 @@ class Doorbell(object):
         self.input_open = {"channel": gpio_open, "state": None, "signal": open_signal, "relay": gpio_relay}
         self.input_thread = None
 
+        self.camera = PiCamera()
+        self.camera.start_preview(alpha=200)
+
     def _read_inputs(self):
         while bool(self.input_bell):
             ring_current_state = GPIO.input(self.input_bell["channel"])
@@ -40,6 +45,8 @@ class Doorbell(object):
             # Doorbell ring button detection.
             if self.input_bell["state"] != ring_current_state:
                 if not GPIO.input(self.input_bell["channel"]):
+                    now = datetime.now().replace(microsecond=0).isoformat()
+                    self.camera.capture("/var/www/html/capture/capture-%s.jpg" % (now,))
                     self.input_bell["signal"].send()
                 self.input_bell["state"] = ring_current_state
 
@@ -64,5 +71,6 @@ class Doorbell(object):
         return False
 
     def shutdown(self):
+        self.camera.stop_preview()
         self.input_bell = None
         GPIO.cleanup()
